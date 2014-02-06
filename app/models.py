@@ -17,9 +17,10 @@ class Entry(db.Model):
     value = db.Column(db.Float)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
 
-    def __init__(self, name, value):
+    def __init__(self, name, value, project_id):
         self.name = name
         self.value = value
+        self.project_id = project_id
 
     def __repr__(self):
         return self.name + "+" + str(self.value)

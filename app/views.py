@@ -13,6 +13,16 @@ def index():
             projects = projects,
             form = form)
 
+@app.route('/<name>')
+def view_project(name):
+    project = Project.query.filter_by(name=name).first()
+    entry = Entry("",10,project.id)
+    form = EntryForm(obj=entry)
+    return render_template("project.html",
+            project = project.name,
+            entries = project.entries,
+            form = form)
+
 @app.route('/addproject', methods=['POST'])
 def add_project():
     project = Project(request.form['name'])
@@ -20,7 +30,13 @@ def add_project():
     db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/<name>')
-def view_project(name):
-    project = Project.query.filter_by(name=name).first()
-    return project.name
+@app.route('/<project>/addentry', methods=['POST'])
+def add_entry(project):
+    name = request.form['name']
+    value = request.form['value']
+    project_id = request.form['project_id']
+
+    entry = Entry(name, value, project_id)
+    db.session.add(entry)
+    db.session.commit()
+    return redirect(url_for('view_project',name=project))
