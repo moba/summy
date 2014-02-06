@@ -2,9 +2,11 @@
 {% block title %}{{project}}{% endblock %}
 {% block content %}
 <table>
-  {% for entry in entries %}
+ <col id="entries"/>
+ <col id="values"/>
+ {% for entry in entries %}
   <tr><td>{{entry.name}}</a></td><td>{{entry.value}}</tr>
-  {% endfor %}
+ {% endfor %}
   <tr id="sum"><td>
   </td><td>
    {{entrysum}}
@@ -16,7 +18,7 @@
   <td>
    {{ form.value }}
   </td><td>
-   <input type=submit value=add>
+   {{ form.csrf_token }} {{ form.project_id }} <input type=submit value=add>
    </form>
   </td></tr>
 </table>
