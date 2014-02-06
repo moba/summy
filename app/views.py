@@ -25,16 +25,22 @@ def view_project(name):
 
 @app.route('/addproject', methods=['POST'])
 def add_project():
-    project = Project(request.form['name'])
+    form = ProjectForm(request.form)
+    if not form.validate():
+        return "noy"
+    project = Project(form.name.data)
     db.session.add(project)
     db.session.commit()
     return redirect(url_for('index'))
 
 @app.route('/<project>/addentry', methods=['POST'])
 def add_entry(project):
-    name = request.form['name']
-    value = request.form['value']
-    project_id = request.form['project_id']
+    form = EntryForm(request.form)
+    if not form.validate():
+        return "wokdo"
+    name = form.name.data
+    value = form.value.data
+    project_id = form.project_id.data
 
     entry = Entry(name, value, project_id)
     db.session.add(entry)
