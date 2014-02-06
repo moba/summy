@@ -3,6 +3,7 @@ from app import app, db
 from forms import ProjectForm, EntryForm
 from models import Project, Entry
 from wtforms.ext.sqlalchemy.orm import model_form
+from sqlalchemy.sql import func
 
 @app.route('/')
 def index():
@@ -17,10 +18,12 @@ def index():
 def view_project(name):
     project = Project.query.filter_by(name=name).first()
     entry = Entry("",10,project.id)
+    entrysum = db.session.query(func.sum(Entry.value)).first()[0]
     form = EntryForm(obj=entry)
     return render_template("project.html",
             project = project.name,
             entries = project.entries,
+            entrysum = entrysum,
             form = form)
 
 @app.route('/addproject', methods=['POST'])

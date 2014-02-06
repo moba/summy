@@ -5,12 +5,18 @@
   {% for entry in entries %}
   <tr><td>{{entry.name}}</a></td><td>{{entry.value}}</tr>
   {% endfor %}
+  <tr id="sum"><td>
+  </td><td>
+   {{entrysum}}
+  </td></tr>
   <tr><td>
    <form action="{{ url_for('add_entry', project=project) }}" method=post class=add-entry>
-    {% for field in form %}
-     {{ field }}
-    {% endfor %}
-    <input type=submit value=new>
+   {{ form.name }}
+  </td>
+  <td>
+   {{ form.value }}
+  </td><td>
+   <input type=submit value=add>
    </form>
   </td></tr>
 </table>
