@@ -18,7 +18,7 @@ def index():
 def view_project(name):
     project = Project.query.filter_by(name=name).first()
     entry = Entry("",10,project.id)
-    entrysum = db.session.query(func.sum(Entry.value)).first()[0]
+    entrysum = db.session.query(func.sum(Entry.value)).filter_by(project_id=project.id).first()[0]
     form = EntryForm(obj=entry)
     return render_template("project.html",
             project = project.name,
