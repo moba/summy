@@ -30,7 +30,7 @@ def view_project(name):
 def add_project():
     form = ProjectForm(request.form)
     if not form.validate():
-        return "noy"
+        return str(form.errors)
     project = Project(form.name.data)
     db.session.add(project)
     db.session.commit()
@@ -40,7 +40,7 @@ def add_project():
 def add_entry(project):
     form = EntryForm(request.form)
     if not form.validate():
-        return "wokdo"
+        return str(form.errors)
     name = form.name.data
     value = form.value.data
     project_id = form.project_id.data
