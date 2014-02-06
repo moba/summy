@@ -1,25 +1,25 @@
 {% extends "layout.html" %}
 {% block title %}{{project}}{% endblock %}
 {% block content %}
+<form action="{{ url_for('add_entry', project=project) }}" method=post         class=add-entry>
 <table>
  <col id="entries"/>
  <col id="values"/>
  {% for entry in entries %}
-  <tr><td>{{entry.name}}</a></td><td>{{entry.value}}</tr>
+  <tr><td>{{entry.name}}</td><td>{{entry.value}}</tr>
  {% endfor %}
   <tr id="sum"><td>
   </td><td>
    {{entrysum}}
   </td></tr>
   <tr><td>
-   <form action="{{ url_for('add_entry', project=project) }}" method=post class=add-entry>
    {{ form.name }}
   </td>
   <td>
    {{ form.value }}
   </td><td>
    {{ form.csrf_token }} {{ form.project_id }} <input type=submit value=add>
-   </form>
   </td></tr>
 </table>
+</form>
 {% endblock %}
