@@ -15,7 +15,7 @@ class Entry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     value = db.Column(db.Float)
-    project_id= db.Column(db.Integer, db.ForeignKey('project.id'))
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
 
     def __init__(self, name, value):
         self.name = name
