@@ -6,11 +6,12 @@
  <col id="entries"/>
  <col id="values"/>
  {% for entry in entries %}
-  <tr><td>{{entry.name}}</td><td>{{entry.value}}</tr>
+  <tr><td>{{entry.name}}</td><td class="value">{{'%0.2f' % entry.value}}</tr>
  {% endfor %}
   <tr id="sum"><td>
-  </td><td>
-   {{entrysum}}
+  </td>
+  <td class="value">
+   {{'%0.2f' % entrysum}}
   </td></tr>
   <tr><td>
    {{ form.name }}
