@@ -1,20 +1,21 @@
 from flask import render_template, request, redirect, url_for
 from app import app, db
-from forms import EntryForm
+from forms import ProjectForm, EntryForm
 from models import Project, Entry
+from wtforms.ext.sqlalchemy.orm import model_form
 
 @app.route('/')
 def index():
     projects = Project.query.all()
-#    return str(len(projects))
-#    projects = [ Project('bla'), Project('blupp') ]
+    form = ProjectForm()
     return render_template("index.html",
             title = 'Index',
-            projects = projects)
+            projects = projects,
+            form = form)
 
 @app.route('/addproject', methods=['POST'])
 def add_project():
-    project = Project(request.form['project'])
+    project = Project(request.form['name'])
     db.session.add(project)
     db.session.commit()
     return redirect(url_for('index'))
